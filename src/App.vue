@@ -1,6 +1,31 @@
 <template>
   <v-app>
-    
+    <v-container>
+    <v-card>
+      <v-container>
+        <v-row>
+          <v-col 
+            cols="2" 
+            v-for="pokemon in pokemons.slice(0 ,10)" 
+            :key="pokemon.name"
+          >
+          <v-card>
+            <v-container>
+              <v-row class="mx-0 d-flex justify-center">
+              <img 
+                :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getId(pokemon)}.png`"
+                :alt="pokemon.name"
+                width="80%"
+              />
+              </v-row>
+              <h2 class="text-center">{{ pokemon.name }}</h2>
+            </v-container>
+          </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
+    </v-container>
   </v-app>
 </template>
 
@@ -10,13 +35,19 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    pokemons: [],
   }),
 
   mounted(){
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=151").then((response) => {
-      console.log(response);
+      this.pokemons = response.data.results;
     })
+  },
+
+  methods:{
+    getId(pokemon){
+      return Number(pokemon.url.split("/")[6])
+    }
   }
 };
 </script>
