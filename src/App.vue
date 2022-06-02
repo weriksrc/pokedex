@@ -3,10 +3,16 @@
     <v-container>
     <v-card>
       <v-container>
+        <v-text-field
+          v-model="search"
+          label="Pesquisar"
+          solo
+        >
+        </v-text-field>
         <v-row>
           <v-col 
             cols="2" 
-            v-for="pokemon in pokemons.slice(0 ,10)" 
+            v-for="pokemon in filteredPokemons" 
             :key="pokemon.name"
           >
           <v-card>
@@ -18,7 +24,7 @@
                 width="80%"
               />
               </v-row>
-              <h2 class="text-center">{{ pokemon.name }}</h2>
+              <h2 class="text-center">{{ getName(pokemon) }}</h2>
             </v-container>
           </v-card>
           </v-col>
@@ -36,6 +42,7 @@ export default {
 
   data: () => ({
     pokemons: [],
+    search: "",
   }),
 
   mounted(){
@@ -47,6 +54,18 @@ export default {
   methods:{
     getId(pokemon){
       return Number(pokemon.url.split("/")[6])
+    },
+
+    getName(pokemon){
+      return pokemon.name.charAt(0).toUpperCase() + pokemon.name.substring(1)
+    }
+  },
+
+  computed:{
+    filteredPokemons(){
+      return this.pokemons.filter((item) => {
+        return item.name.includes(this.search)
+      })
     }
   }
 };
