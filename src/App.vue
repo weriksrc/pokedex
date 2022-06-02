@@ -1,7 +1,5 @@
 <template>
   <v-app>
-    <v-container>
-    <v-card>
       <v-container>
         <v-text-field
           v-model="search"
@@ -30,8 +28,6 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-card>
-    </v-container>
   </v-app>
 </template>
 
