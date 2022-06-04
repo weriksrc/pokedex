@@ -69,7 +69,7 @@
                   v-for="item in filterMoves(selectedPokemon)"
                   :key="item.move.name"
                 >
-                  <td>0</td>
+                  <td>{{ getMoveLevel(item) }}</td>
                   <td>{{ item.move.name }}</td>
                 </tr>
               </tbody>
@@ -117,11 +117,20 @@ export default {
     })
     },
 
+    getMoveLevel(move){
+      for(let version of move.version_group_details){
+        if(version.version_group.name == "sword-shield" && version.move_learn_method.name == "level-up"){
+            return version.level_learned_at;
+          }
+      }
+      return 0
+    },
+
     filterMoves(pokemon){
       return pokemon.moves.filter((item) =>{
         let include = false;
         for (let version of item.version_group_details){
-          if(version.version_group.name == "sword-shield" && version.move_learn_method.name != "machine"){
+          if(version.version_group.name == "sword-shield" && version.move_learn_method.name == "level-up"){
             include = true;
           }
         }
