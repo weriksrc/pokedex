@@ -13,7 +13,7 @@
             v-for="pokemon in filteredPokemons" 
             :key="pokemon.name"
           >
-          <v-card>
+          <v-card @click="showPokemonInfo(pokemon)">
             <v-container>
               <v-row class="mx-0 d-flex justify-center">
               <img 
@@ -28,6 +28,16 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-dialog
+      v-model="showDialog"
+      width="500"
+    >
+      <v-card>
+        <v-container>
+          {{ selectedPokemon }}
+        </v-container>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -39,6 +49,8 @@ export default {
   data: () => ({
     pokemons: [],
     search: "",
+    showDialog: false,
+    selectedPokemon: null
   }),
 
   mounted(){
@@ -54,6 +66,15 @@ export default {
 
     getName(pokemon){
       return pokemon.name.charAt(0).toUpperCase() + pokemon.name.substring(1)
+    },
+
+    showPokemonInfo(pokemon){
+      let idPokemon = this.getId(pokemon);
+
+      axios.get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then((response) => {
+        this.showDialog = !this.showDialog;
+        this.selectedPokemon = response.data;
+    })
     }
   },
 
