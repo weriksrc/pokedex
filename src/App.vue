@@ -30,11 +30,51 @@
       </v-container>
       <v-dialog
       v-model="showDialog"
-      width="500"
+      width="800"
     >
-      <v-card>
+      <v-card v-if="selectedPokemon" class="px-4">
         <v-container>
-          {{ selectedPokemon }}
+          <v-row class="d-flex align-center">
+            <v-col cols="4">
+              <img 
+                :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`"
+                :alt="selectedPokemon.name"
+                width="80%"
+              />
+            </v-col>
+            <v-col cols="8">
+              <h1>{{ getName(selectedPokemon) }}</h1>
+              <v-chip label class="mr-2" v-for="type in selectedPokemon.types" :key="type.slot">{{ type.type.name }}</v-chip>
+              <v-divider class="my-4"></v-divider>
+              <v-chip label>Altura {{ selectedPokemon.height * 2.54}} cm</v-chip>
+              <v-chip label class="ml-2">Peso {{ (selectedPokemon.weight * 0.45359237).toFixed(0) }} kg</v-chip>
+            </v-col>
+          </v-row>
+
+          <h2>Moves</h2>
+          <v-simple-table>
+            <template>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    Level
+                  </th>
+                  <th class="text-left">
+                    Name
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in filterMoves(selectedPokemon)"
+                  :key="item.move.name"
+                >
+                  <td>0</td>
+                  <td>{{ item.move.name }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
         </v-container>
       </v-card>
     </v-dialog>
@@ -75,6 +115,18 @@ export default {
         this.showDialog = !this.showDialog;
         this.selectedPokemon = response.data;
     })
+    },
+
+    filterMoves(pokemon){
+      return pokemon.moves.filter((item) =>{
+        let include = false;
+        for (let version of item.version_group_details){
+          if(version.version_group.name == "sword-shield" && version.move_learn_method.name != "machine"){
+            include = true;
+          }
+        }
+        return include
+      })
     }
   },
 
