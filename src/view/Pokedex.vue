@@ -60,8 +60,11 @@ export default {
   .pokemon-container{
     display: flex;
     justify-content: center;
+    align-items: center;
   }
   .pokemon-card{
+    display: flex;
+    align-items: center;
     background-color: #fff;
     width: 255px;
     height: 170px;
@@ -72,7 +75,7 @@ export default {
   .btn-navigation-previous{
     position: absolute;
     bottom: 244px;
-        right: 748px;
+    right: 748px;
     height: 45px !important;
     min-width: 120px !important;
     z-index: 3;
