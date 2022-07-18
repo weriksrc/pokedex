@@ -40,10 +40,10 @@ export default {
     display: flex;
     align-items: center;
     background-color: #a0fdff !important;
-    width: 255px;
-    height: 170px;
+    width: 17.5%;
+    height: 25%;
     position: absolute;
-    top: 365px;
-    left: 635px;
+    top: 33.5%;
+    left: 29.5%;
   }
 </style>

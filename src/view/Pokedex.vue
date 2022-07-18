@@ -2,7 +2,7 @@
   <v-container class="container">
     <v-img
       class="pokedex-image"
-      width="800" 
+      width="100%" 
       :src="require('@/assets/pokedex.png')"
     >
     </v-img>
@@ -69,17 +69,22 @@ export default {
 </script>
 
 <style scoped>
+  .container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
   .pokedex-image{
-    margin: 0 auto !important;
     z-index: 2;
   }
 
   .btn-navigation-previous{
     position: absolute;
-    bottom: 244px;
-    right: 748px;
-    height: 43px !important;
-    min-width: 120px !important;
+    bottom: 20.7%;
+    right: 37.4%;
+    height: 6.5% !important;
+    width: 7.8% !important;
     color: #fff !important;
     background: #ce0321 !important;
     border: 2px solid #000606 !important;
@@ -90,10 +95,10 @@ export default {
 
   .btn-navigation-next{
     position: absolute;
-    bottom: 244px;
-    right: 610px;
-    height: 43px !important;
-    min-width: 120px !important;
+    bottom: 20.7%;
+    right: 29%;
+    height: 6.5% !important;
+    width: 7.8% !important;
     color: #fff !important;
     background: #0b7082 !important;
     border: 2px solid #000606 !important;

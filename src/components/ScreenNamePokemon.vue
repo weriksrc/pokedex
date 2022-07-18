@@ -35,10 +35,10 @@ export default {
 
   .card-name{
     position: absolute;
-    bottom: 235px;
-    left: 658px;
-    width: 133px !important;
-    height: 63px;
+    bottom: 20%;
+    left: 31.5%;
+    width: 9%!important;
+    height: 8.5%;
     z-index: 3;
     display: flex;
     background-color: #084035 !important;
